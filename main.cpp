@@ -9,7 +9,7 @@ int main() {
     cout << "Welcome to Blind Man's Bluff" << endl << endl;
     bool play, invalid, guessedHigher;
     string response;
-    int compValue, userValue, nWin = 0, nLoss = 0, nTie = 0, cardcount = 0;
+    int compValue, userValue, nWin = 0, nLoss = 0, nTie = 0;
     srand(time(NULL));
 
     //creating two decks the original and the discard
@@ -22,10 +22,17 @@ int main() {
 
     play = true;
     while(play) {
-        // assign cards to computer and user
+        // assign cards to computer and user and put them in discard deck to keep track of number of cards played
         Card user = playingDeck.removeCard();
         Card computer = playingDeck.removeCard();
-        cardcount = cardcount + 2;//adds 2 to card count when a user and computer card are drawn
+        discardDeck.addCard(user);
+        discardDeck.addCard(computer);
+        //checking to make sure you have not run out of cards by seeing if you can add to discard pile
+        if (discardDeck.addCard(computer) == false) {
+            cout << "You have used all of the cards in the deck. Game Over." << endl;
+            break;
+        }
+
         // get user's bet
         cout << "Computer's value is " << computer.CardToString() << endl;
         invalid = true;
@@ -49,10 +56,10 @@ int main() {
 
         // determine outcome
         if ((user > computer && guessedHigher) || (computer > user && !guessedHigher)) {
-            cout << "Great! You're right:" << endl;
+            cout << "Great! You're right:" << " your card was " << user.CardToString() << endl;
             nWin++;
         } else if ((computer > user && guessedHigher) || (user > computer && !guessedHigher)) {
-            cout << "Sorry, you're wrong:" << endl;
+            cout << "Sorry, you're wrong:" << " your card was " << user.CardToString() << endl;
             nLoss++;
         } else {
             cout << "It's a tie:" << endl;
@@ -78,6 +85,8 @@ int main() {
                 cout << "Invalid response..." << endl;
                 invalid = true;
             }
+
+
         }
     }
 

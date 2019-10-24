@@ -6,7 +6,7 @@ using namespace std;
 
 //constructor class for Deck
 Deck::Deck() {
-    cout << "Constructor called." << endl;
+    cout << "Deck Constructor called." << endl;
     //setting the two private parameters in deck
     arraySize = 52;
     cardsLeft = 0;
@@ -17,7 +17,7 @@ Deck::Deck() {
 
 //copy constructor
 Deck::Deck(const Deck &copyOfDeck) {
-    cout << "Copy Constructor called." << endl;
+    cout << "Deck Copy Constructor called." << endl;
     arraySize = copyOfDeck.arraySize;
     cardsLeft = copyOfDeck.cardsLeft;
     cards = new Card[arraySize];
@@ -28,13 +28,13 @@ Deck::Deck(const Deck &copyOfDeck) {
 
 //destructor class for Deck
 Deck::~Deck() {
-    cout << "Destructor called." << endl;
+    cout << "Deck Destructor called." << endl;
     delete[] cards; //deletes array of cards
 }
 
 //copy assignment
 Deck &Deck::operator=(Deck assignment) {
-    cout << "Copy assignment called." << endl;
+    cout << "Deck Copy assignment called." << endl;
     swap(cards, assignment.cards);
     arraySize = assignment.arraySize;
     cardsLeft = assignment.cardsLeft;
@@ -55,7 +55,9 @@ void Deck::shuffleDeck() {
 void Deck::populateDeck() {
     for (int i = 0; i < 4; i++) { //for each suit
         for (int j = 0; j < 13; j++) { //for each rank
-            addCard(Card(j, i)); //populate each deck with a card of each rank and suit
+            Card c(j, i);
+            //cout<<c.CardToString()<<endl;
+            addCard(c); //populate each deck with a card of each rank and suit
         }
     }
 }
@@ -72,5 +74,5 @@ bool Deck::addCard(Card newCard) {
 
 //remove cards from deck when drawn
 Card Deck::removeCard() {
-    return cards[-cardsLeft];
+    return cards[--cardsLeft];
 }
