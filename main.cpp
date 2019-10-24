@@ -20,6 +20,14 @@ int main() {
     playingDeck.populateDeck();
     playingDeck.shuffleDeck();
 
+    //testing calling copy constructor and copy assignment
+    Deck copyDeck;
+    copyDeck = playingDeck;
+    //Card testPlayingDeck;
+    //Card testCopyDeck;
+
+
+
     play = true;
     while(play) {
         // assign cards to computer and user and put them in discard deck to keep track of number of cards played
